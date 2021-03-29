@@ -16,12 +16,6 @@ class WeekDay extends React.Component {
         };
     }
 
-    componentDidMount() {
-        const state = { ...this.state };
-        state.selected = this.props.selected
-        this.setState(state)
-    }
-
     onPress() {
         const state = { ...this.state };
         state.selected = !this.state.selected
@@ -53,20 +47,13 @@ class WeekDay extends React.Component {
                     }
                     style={[{
                         borderRadius: 10
-                    }, [this.state.selected ?
-                        styles.buttonSelected :
-                        styles.textUnselected
-                    ]]}
+                    }, this.state.style.button]}
                 >
                     <Text style={[this.state.style.text,
                     {
                         paddingVertical: 5,
                         paddingHorizontal: 10
-                    },
-                    [this.state.selected ?
-                        styles.textSelected :
-                        styles.textUnselected
-                    ]
+                    }
                     ]}>{this.props.day}</Text>
                 </TouchableOpacity>
             </View >

@@ -4,12 +4,12 @@ import icons from '../constants/icons'
 import { COLORS, FONTS, SIZES } from '../constants/theme'
 import { daysOfWeek } from '../constants/app'
 import { connect } from 'react-redux'
-import { getAllAlarms } from '../redux/selectors'
+import { getAlarmsList } from '../redux/selectors'
 import { toggleAlarm } from '../redux/actions'
 import { showTime } from '../helpers'
 
 
-const Home = ({ alarms, dispatch, navigation }) => {
+const Home = ({ store, dispatch, navigation }) => {
 
     const renderHeader = () => (
         <View style={styles.header}>
@@ -41,7 +41,11 @@ const Home = ({ alarms, dispatch, navigation }) => {
         <TouchableOpacity
             onPress={() => {
                 navigation.navigate("AlarmDetails", {
-                    id: item.id
+                    id: item.id,
+                    tag: item.tag,
+                    time: item.time,
+                    days: item.days,
+                    volume: item.volume
                 })
             }}
         >
@@ -101,7 +105,7 @@ const Home = ({ alarms, dispatch, navigation }) => {
     const renderFlatFist = () => (
         <FlatList
             renderItem={renderItem}
-            data={alarms}
+            data={store.alarm}
             key={item => item.id}
             style={{ paddingVertical: SIZES.padding * 2 }}
             ListEmptyComponent={<View>
@@ -146,8 +150,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const alarms = getAllAlarms(state)
-    return { alarms };
+    const store = getAlarmsList(state)
+    // console.log(store)
+    return { store };
 };
 
 export default connect(mapStateToProps)(Home)

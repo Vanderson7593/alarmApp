@@ -2,16 +2,18 @@ import React from 'react'
 import { createSelector } from 'reselect'
 
 
-const getAlarms = state => state.alarm.alarms
-
-const getAlarm = (state, id) => state.alarm.alarms.filter(a => a.id == id)
-
-export const getAllAlarms = createSelector(
-    getAlarms,
-    alarms => alarms
+export const selectAlarms = createSelector(
+    state => state
 )
 
-export const getAlarmById = createSelector(
-    getAlarm,
-    alarms => alarms
-)
+export const teste = (state) => {
+    console.log(selectAlarms(state))
+}
+
+export const getAlarmsState = store => store
+
+export const getAlarmsList = store =>
+    getAlarmsState(store) ? getAlarmsState(store) : [];
+
+export const getAlarmById = (store, id) =>
+    getAlarmsState(store) ? { ...getAlarmsState(store)[id], id } : {};

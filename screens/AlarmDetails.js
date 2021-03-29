@@ -18,13 +18,15 @@ const AlarmDetails = ({ getAlarm, store, navigation, dispatch, route }) => {
 
     const { id } = route.params
 
-    const item = getAlarm(id)
+    const alarm = getAlarm(id)
+
+    console.log(alarm)
 
     const [form, setForm] = React.useState({
-        tag: item.tag,
-        time: new Date(item.time),
-        days: item.days,
-        volume: item.volume
+        tag: "tag",
+        time: new Date(),
+        days: [],
+        volume: 100
     })
 
     function handleWeekday(day) {
@@ -137,7 +139,7 @@ const AlarmDetails = ({ getAlarm, store, navigation, dispatch, route }) => {
                             paddingTop: SIZES.padding2
                         }}
                     >
-                        <WeekDay selected={true} day="Seg"
+                        <WeekDay day="Seg"
                             onPress={() => handleWeekday(1)}
                         />
                         <WeekDay day="Ter"
@@ -349,10 +351,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 
-
     return {
         getAlarm: (id) => {
-            const a = getAlarmById(state, id)
+            const a = getAlarmById(id, state)
             return a[0]
         }
     }

@@ -86,7 +86,7 @@ const NewAlarm = ({ navigation, dispatch }) => {
                             color: COLORS.darkgray
                         }}
                         value={form.tag}
-                        onChangeText={text => setForm({
+                        onChangeText={(text) => setForm({
                             ...form,
                             tag: text
                         })}
